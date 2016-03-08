@@ -11,7 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{C59E7189-1AA9-4174-AEE3-A97360B7C5F4}</ProjectGuid>
+    <ProjectGuid>{765144C0-8F57-45FD-B63E-C890F4008CB0}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>HierarchList</RootNamespace>
   </PropertyGroup>
@@ -79,12 +79,18 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="targetver.h" />
     <ClInclude Include="TLink.h" />
     <ClInclude Include="TStack.h" />
     <ClInclude Include="TText.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="HierarchList.cpp" />
+    <ClCompile Include="stdafx.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+    </ClCompile>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -4,6 +4,9 @@
 
 const int MaxLen = 81;
 
+
+using namespace std;
+
 class TLink
 {
 public:
@@ -34,5 +37,5 @@ TLink:: TLink(char* _str, TLink* _pNext, TLink* _pDown)
 {
 	pNext = _pNext;
 	pDown = _pDown;
-	strcpy(str, _str);
+	strcpy_s(str, _str);
 }

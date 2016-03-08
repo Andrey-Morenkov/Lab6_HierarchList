@@ -2,18 +2,19 @@
 
 #include "TLink.h"
 #include "TStack.h"
+#include <fstream>
+#include <iostream>
+#include <conio.h>
 
 
 class TText
 {
-private:
-	
+public:
+
 	TLink*         pFirst;
 	TLink*         pCurr ;
 	TStack<TLink*> path  ;
 	
-public:
-
 	TText(TLink* _pFirst = NULL);
 	~TText(){};
 
@@ -33,7 +34,17 @@ public:
 	void Reset ();
 	void GoNext();
 	bool IsEnd ();
+
+	TLink* ReadSection (ifstream& ifs);
+	void   ReadFile    (char* fname)  ;
+	void   PrintSection(TLink* p)     ;
+	void   PrintText   ()             ;
+	void   SaveText    (char* fname)  ;
+	//void   SaveSection (pFirst, ofs)  ;
 };
+
+
+using namespace std;
 
 
 
@@ -82,7 +93,7 @@ void TText::GoPrevLink()
 {
 	if (! path.IsEmpty())
 	{
-		pCurr = path.Pop;
+		pCurr = (TLink*)path.Pop;                // хз почему но с () работает
 	}
 }
 
@@ -178,4 +189,64 @@ void TText::GoNext()
 bool TText::IsEnd()
 {
 	return (path.IsEmpty());
+}
+
+TLink* TText::ReadSection(ifstream& ifs)
+{
+	TLink* pHead = new TLink();
+	TLink* pTmp = pHead;
+	string str;
+	while (!ifs.eof())
+	{
+		getline(ifs, str);
+		if (str[0] == '}')
+			break;
+		else
+		{
+			if (str[0] == '{')
+				pTmp->pDown = ReadSection(ifs);
+			else
+			{
+				//char   str1[100] = str.c_str();
+				TLink* q = new TLink(str.c_str());
+				pTmp->pNext = q;
+				pTmp = q;
+			}
+		}
+	}
+
+	if (pHead->pDown == NULL)
+	{
+		TLink* tmp = pHead->pNext;
+		delete pHead;
+		pHead = tmp;
+	}
+	return pHead;
+}
+
+void TText::ReadFile(char* fname)
+{
+	ifstream ifs(fname);
+	pFirst = ReadSection(ifs);
+}
+
+void TText::PrintSection(TLink* p)
+{
+	if (p != NULL)
+	{
+		cout << p->str << endl;
+		PrintSection(p->pDown);
+		PrintSection(p->pNext);
+	}
+}
+
+void TText::PrintText()
+{
+	PrintSection(pFirst);
+}
+
+void TText::SaveText(char* fname)
+{
+	ofstream ofs(fname);
+	//SaveSection(pFirst, ofs);
 }

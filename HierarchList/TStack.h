@@ -1,3 +1,4 @@
+#pragma once
 // Динамические структуры данных - стек
 
 // |   | 4
@@ -8,6 +9,9 @@
 //      -1
 
 #define MaxStackSize = 1000;
+
+
+using namespace std;
 
 template <class T>
 class TStack
