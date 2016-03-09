@@ -16,8 +16,8 @@ public:
 	TLink* pDown      ; // ”казатель на подуровень
 
 	TLink();
-	TLink(char* _str, TLink* _pNext = NULL, TLink* _pDown = NULL);
-	~TLink();
+	TLink(const char* _str, TLink* _pNext = NULL, TLink* _pDown = NULL);
+	~TLink(){	}
 };
 
 
@@ -33,7 +33,7 @@ TLink:: TLink()
 	str[0] = '\0';
 }
 
-TLink:: TLink(char* _str, TLink* _pNext, TLink* _pDown)
+TLink:: TLink(const char* _str, TLink* _pNext, TLink* _pDown)
 {
 	pNext = _pNext;
 	pDown = _pDown;

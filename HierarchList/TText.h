@@ -51,7 +51,7 @@ using namespace std;
 
 
 
-TText::TText(TLink* _pFirst = NULL) : path(100)
+TText::TText(TLink* _pFirst) : path(100)
 {
 	if (_pFirst == NULL)
 	{
@@ -93,7 +93,7 @@ void TText::GoPrevLink()
 {
 	if (! path.IsEmpty())
 	{
-		pCurr = (TLink*)path.Pop;                // хз почему но с () работает
+		pCurr = path.Pop();               
 	}
 }
 

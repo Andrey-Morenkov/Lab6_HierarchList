@@ -8,7 +8,8 @@
 // |___| 0
 //      -1
 
-#define MaxStackSize = 1000;
+//const int MaxStackSize = 1000;
+#define MaxStackSize 1000
 
 
 using namespace std;
