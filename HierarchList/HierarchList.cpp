@@ -11,10 +11,15 @@
 
 using namespace std;
 
+void menu()
+{
+	const int MenuSize = 5;
+	string MenuProt[MenuSize];
 
+}
 
 int _tmain(int argc, _TCHAR* argv[])
 {
-	return 0;
+	
 }
 
