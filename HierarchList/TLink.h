@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <iostream>
 
 const int MaxLen = 81;
 
@@ -36,7 +37,7 @@ public:
 	void operator delete (void* p);
 	static void InitMem(int size);
 	static void ClearMem(TText txt);
-	//void PrintFreeLinks();
+	void PrintFreeLinks();
 
 };
 
@@ -107,4 +108,14 @@ void TLink::ClearMem(TText txt)
 			pTmp++;
 		}
 	}
+}
+
+void TLink::PrintFreeLinks()
+{
+	string FreeLinks = NULL;
+	while (TextMem.pFree != NULL)
+	{
+		FreeLinks += (TextMem.pFree->str + ' ');
+	}
+	cout << FreeLinks << endl;
 }
