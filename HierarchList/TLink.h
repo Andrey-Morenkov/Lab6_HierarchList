@@ -7,10 +7,10 @@ const int MaxLen = 81;
 
 using namespace std;
 
+const int MaxArrSize = 100;
+
 class TLink;
 class TText;
-
-const int MaxArrSize = 100;
 
 struct TTextMem
 {
@@ -32,12 +32,12 @@ public:
 	TLink(const char* _str, TLink* _pNext = NULL, TLink* _pDown = NULL);
 	~TLink(){	}
 	
-	static TTextMem TextMem;
-	void* operator new(size_t size);
-	void operator delete (void* p);
-	static void InitMem(int size);
-	static void ClearMem(TText txt);
-	void PrintFreeLinks();
+	static TTextMem TextMem;                        // поле где выдел€ем пам€ть
+	       void*    operator new(size_t size);      
+	       void     operator delete (void* p);
+	static void     InitMem(int size);
+	static void     ClearMem(TText& txt);
+	       void     PrintFreeLinks();
 
 };
 
@@ -65,31 +65,31 @@ void* TLink:: operator new(size_t size)
 void TLink:: operator delete (void* p)
 {
 	TLink* tmp = (TLink*) p;
-	tmp->TextMem.pFree = TextMem.pFree;                                       // ???????????
+	tmp->TextMem.pFree = TextMem.pFree;                                   // ???????????
 	TextMem.pFree = tmp;
 }
 
 void TLink::InitMem(int size)
 {
 	TextMem.pFirst = (TLink*) new char[sizeof (TLink)* size];
-	TextMem.pFree = TextMem.pFirst;
-	TextMem.pLast = TextMem.pFirst + (size - 1);
+	TextMem.pFree  = TextMem.pFirst;
+	TextMem.pLast  = TextMem.pFirst + (size - 1);
 	TLink* tmp = TextMem.pFirst;
 	for (int i = 0; i < size - 1; i++)
 	{
-		tmp->pNext = tmp + 1;                    // начало св€зки
+		tmp->pNext = tmp + 1;                                            // начало св€зки
 		tmp++;
 	}
 	tmp->pNext = NULL;
 }
 
-void TLink::ClearMem(TText txt)
+void TLink::ClearMem(TText& txt)
 {
 	for (txt.Reset(); !txt.IsEnd(); txt.GoNext())
 	{
 		string s = "+";
 		s += txt.GetLine();
-		txt.GetLine(s);
+		txt.SetLine(s);
 	}
 	TLink* pTmp = TextMem.pFree;
 	while (pTmp != NULL)
@@ -101,7 +101,7 @@ void TLink::ClearMem(TText txt)
 	for (int i = 0; i < MaxArrSize; i++)
 	{
 		if (pTmp->str[0] == '+')
-			pTmp->str[0] = '_';
+			pTmp->str[0] = ' ';
 		else
 		{
 			delete pTmp;
