@@ -2,6 +2,7 @@
 
 #include "TLink.h"
 #include "TStack.h"
+#include <string>
 #include <fstream>
 #include <iostream>
 #include <conio.h>
@@ -34,6 +35,9 @@ public:
 	void Reset ();
 	void GoNext();
 	bool IsEnd ();
+
+	string GetLine();
+	void SetLine(string str);
 
 	TLink* ReadSection (ifstream& ifs);
 	void   ReadFile    (char* fname)  ;
@@ -249,4 +253,14 @@ void TText::SaveText(char* fname)
 {
 	ofstream ofs(fname);
 	//SaveSection(pFirst, ofs);
+}
+
+string TText::GetLine()
+{
+	return this->pCurr->str;
+}
+
+void TText::SetLine(string str)
+{
+	*this->pCurr->str = str.c_str();
 }

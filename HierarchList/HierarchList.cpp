@@ -24,17 +24,17 @@ int menu()
 		system("cls");
 
 		if (line == 0)
-			cout << "- " << "Строка 1" << endl;
+			cout << "* " << "Загрузить текст" << endl;
 		else
-			cout << "  " << "Строка 1" << endl;
+			cout << "  " << "Загрузить текст" << endl;
 		if (line == 1)
-			cout << "- " << "Строка 2" << endl;
+			cout << "* " << "Операции с текстом" << endl;
 		else
-		    cout << "  " << "Строка 2" << endl;
+		    cout << "  " << "Операции с текстом" << endl;
 		if (line == 2)
-			cout << "- " << "Строка 3" << endl;
+			cout << "* " << "Сохранить текст" << endl;
 		else
-			cout << "  " << "Строка 3" << endl;
+			cout << "  " << "Сохранить текст" << endl;
 
 		idkey = _getch();
 		switch (idkey)
@@ -54,6 +54,8 @@ int _tmain(int argc, _TCHAR* argv[])
 {
 	setlocale(LC_ALL, "Russian");
 
+	char file[] = "Text.txt";
+
 	while (true)
 	{
 		int answer = menu();
@@ -61,7 +63,7 @@ int _tmain(int argc, _TCHAR* argv[])
 		{
 		case 0:
 			system("cls");
-			cout << "answer1" << endl;
+			ReadFile(file);
 			_getch();
 			break;
 		case 1:
@@ -75,7 +77,6 @@ int _tmain(int argc, _TCHAR* argv[])
 			_getch();
 			break;
 		}
-		break;
 	}
 }
 
