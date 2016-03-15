@@ -262,11 +262,11 @@ void TText::SaveSection(TLink* p, ofstream& ofs)
 		ofs << p->str << endl;
 		if (p->pDown != NULL)
 		{
-			ofs << "}" << endl;
+			ofs << "{" << endl;
 			PrintSection(p->pDown);
 		}
 		if (p->pNext == NULL)
-			ofs << "{" << endl;
+			ofs << "}" << endl;
 		else
 			PrintSection(p->pNext);
 	}
