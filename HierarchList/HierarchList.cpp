@@ -54,7 +54,8 @@ int _tmain(int argc, _TCHAR* argv[])
 {
 	setlocale(LC_ALL, "Russian");
 
-	char file[] = "Text.txt";
+	TText Text;
+	char filename[] = "Text.txt";
 
 	while (true)
 	{
@@ -63,7 +64,8 @@ int _tmain(int argc, _TCHAR* argv[])
 		{
 		case 0:
 			system("cls");
-			ReadFile(file);
+			Text.ReadFile(filename);
+			Text.PrintText();
 			_getch();
 			break;
 		case 1:

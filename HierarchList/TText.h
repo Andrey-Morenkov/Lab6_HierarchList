@@ -39,12 +39,12 @@ public:
 	string GetLine();
 	void SetLine(string str);
 
-	TLink* ReadSection (ifstream& ifs);
-	void   ReadFile    (char* fname)  ;
-	void   PrintSection(TLink* p)     ;
-	void   PrintText   ()             ;
-	void   SaveText    (char* fname)  ;
-	//void   SaveSection (pFirst, ofs)  ;
+	TLink* ReadSection (ifstream& ifs)          ;
+	void   ReadFile    (char* fname)            ;
+	void   PrintSection(TLink* p)               ;
+	void   PrintText   ()                       ;
+	void   SaveText    (char* fname)            ;
+	void   SaveSection (TLink* p, ofstream& ofs);
 };
 
 
@@ -252,7 +252,24 @@ void TText::PrintText()
 void TText::SaveText(char* fname)
 {
 	ofstream ofs(fname);
-	//SaveSection(pFirst, ofs);
+	SaveSection(pFirst, ofs);
+}
+
+void TText::SaveSection(TLink* p, ofstream& ofs)
+{
+	if (p != NULL)
+	{
+		ofs << p->str << endl;
+		if (p->pDown != NULL)
+		{
+			ofs << "}" << endl;
+			PrintSection(p->pDown);
+		}
+		if (p->pNext == NULL)
+			ofs << "{" << endl;
+		else
+			PrintSection(p->pNext);
+	}
 }
 
 string TText::GetLine()
@@ -262,5 +279,5 @@ string TText::GetLine()
 
 void TText::SetLine(string str)
 {
-	*this->pCurr->str = str.c_str();
+	*this->pCurr->str = *str.c_str();
 }
