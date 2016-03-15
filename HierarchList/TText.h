@@ -7,7 +7,6 @@
 #include <iostream>
 #include <conio.h>
 
-
 class TText
 {
 public:
@@ -47,11 +46,21 @@ public:
 	void   SaveSection (TLink* p, ofstream& ofs);
 };
 
+string voids(int _level)
+{
+	int i = _level;
+	string str=NULL;
+	str[0] = '\0';
+	while (i != 0)
+	{
+		str += ' ';
+		i--;
+	}
+	return str;
+}
+
 
 using namespace std;
-
-
-
 
 
 
@@ -231,16 +240,25 @@ TLink* TText::ReadSection(ifstream& ifs)
 void TText::ReadFile(char* fname)
 {
 	ifstream ifs(fname);
+	ifs.open(fname);
 	pFirst = ReadSection(ifs);
+	ifs.close();
 }
 
 void TText::PrintSection(TLink* p)
 {
 	if (p != NULL)
 	{
-		cout << p->str << endl;
-		PrintSection(p->pDown);
-		PrintSection(p->pNext);
+		cout <<voids(p->level)<< p->str << endl;
+		if (p->pDown != NULL)
+		{
+			p->level++;
+			PrintSection(p->pDown);
+		}
+		if (p->pNext == NULL)
+			p->level--;
+		else
+			PrintSection(p->pNext);
 	}
 }
 
@@ -252,7 +270,9 @@ void TText::PrintText()
 void TText::SaveText(char* fname)
 {
 	ofstream ofs(fname);
+	ofs.open(fname);
 	SaveSection(pFirst, ofs);
+	ofs.close();
 }
 
 void TText::SaveSection(TLink* p, ofstream& ofs)

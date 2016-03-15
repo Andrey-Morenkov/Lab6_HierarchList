@@ -11,30 +11,30 @@
 
 using namespace std;
 
-int menu()
+int mainmenu()
 {
+	int MenuLength = 2;         // Длина меню
 	int line  = 0;        // Активная строка
 	int idkey = 0;        // Нажатая клавиша
-	int MenuLength = 3;   // Длина меню
 
 	while (idkey != 13)
 	{
 		line = (line + MenuLength) % MenuLength;
 		
 		system("cls");
-
+			
 		if (line == 0)
 			cout << "* " << "Загрузить текст" << endl;
-		else
+	    else
 			cout << "  " << "Загрузить текст" << endl;
 		if (line == 1)
-			cout << "* " << "Операции с текстом" << endl;
+			cout << "* " << "Выход" << endl;
 		else
-		    cout << "  " << "Операции с текстом" << endl;
-		if (line == 2)
-			cout << "* " << "Сохранить текст" << endl;
-		else
-			cout << "  " << "Сохранить текст" << endl;
+		    cout << "  " << "Выход" << endl;
+		//if (line == 2)
+			//cout << "* " << "Сохранить текст" << endl;
+		//else
+			//cout << "  " << "Сохранить текст" << endl;
 
 		idkey = _getch();
 		switch (idkey)
@@ -50,35 +50,57 @@ int menu()
 	return line;
 }
 
+int textmenu()
+{
+	system("cls");
+	// PrintTextKeys();
+	//Text.PrintTextNavigation();                         // текст в виде меню
+}
+
 int _tmain(int argc, _TCHAR* argv[])
 {
 	setlocale(LC_ALL, "Russian");
 
-	TText Text;
+	//TText Text;
 	char filename[] = "Text.txt";
+	char savefile[] = "SavedText.txt";
 
 	while (true)
 	{
-		int answer = menu();
+		int answer = mainmenu();
 		switch (answer)
 		{
 		case 0:
-			system("cls");
-			Text.ReadFile(filename);
-			Text.PrintText();
+			//Text.ReadFile(filename);
+			//Text.PrintText();
 			_getch();
 			break;
 		case 1:
-			system("cls");
-			cout << "answer2" << endl;
-			_getch();
-			break;
-		case 2:
-			system("cls");
-			cout << "answer3" << endl;
-			_getch();
-			break;
+			exit(0);
+		}
+		while (true)
+		{
+			int answer = mainmenu();
+			switch (answer)
+			{
+			case 0:
+				system("cls");
+				//Text.ReadFile(filename);
+				//Text.PrintText();
+				_getch();
+				break;
+			case 1:
+				system("cls");
+				cout << "answer2" << endl;
+				_getch();
+				break;
+			case 2:
+				system("cls");
+				//Text.SaveText(savefile);
+				cout << "answer3" << endl;
+				_getch();
+				break;
+			}
 		}
 	}
 }
-

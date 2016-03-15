@@ -13,12 +13,6 @@ const int MaxArrSize = 100;
 class TLink;
 class TText;
 
-struct TTextMem
-{
-	TLink* pFirst;
-	TLink* pFree;
-	TLink* pLast;
-};
 
 
 class TLink
@@ -28,6 +22,13 @@ public:
 	char   str[MaxLen]; // Строка в списке ( заголовок)
 	TLink* pNext      ; // Указатель на тот же уровень
 	TLink* pDown      ; // Указатель на подуровень
+	int    level      ; // Уровень текста
+	struct TTextMem
+	{
+		TLink* pFirst;
+		TLink* pFree;
+		TLink* pLast;
+	};
 
 	TLink();
 	TLink(const char* _str, TLink* _pNext = NULL, TLink* _pDown = NULL);
@@ -46,6 +47,7 @@ TLink:: TLink()
 {
 	pNext = NULL;
 	pDown = NULL;
+	level = 0;
 	str[0] = '\0';
 }
 
@@ -53,6 +55,7 @@ TLink:: TLink(const char* _str, TLink* _pNext, TLink* _pDown)
 {
 	pNext = _pNext;
 	pDown = _pDown;
+	level = 0;
 	strcpy_s(str, _str);
 }
 
@@ -72,7 +75,7 @@ void TLink:: operator delete (void* p)
 
 void TLink::InitMem(int size)
 {
-	TextMem.pFirst = (TLink*) new char[sizeof (TLink)* size];
+	TextMem.pFirst = (TLink*) new char[sizeof (TLink)*size];
 	TextMem.pFree  = TextMem.pFirst;
 	TextMem.pLast  = TextMem.pFirst + (size - 1);
 	TLink* tmp = TextMem.pFirst;
