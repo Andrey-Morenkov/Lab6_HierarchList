@@ -2,7 +2,7 @@
 
 #include <string>
 #include <iostream>
-//#include "TText.h"
+#include "TText.h"
 
 const int MaxLen = 81;
 
@@ -10,9 +10,15 @@ using namespace std;
 
 const int MaxArrSize = 100;
 
-class TLink;
 class TText;
+class TLink;
 
+struct TTextMem
+{
+	TLink* pFirst;
+	TLink* pFree;
+	TLink* pLast;
+};
 
 
 class TLink
@@ -23,12 +29,7 @@ public:
 	TLink* pNext      ; // ”казатель на тот же уровень
 	TLink* pDown      ; // ”казатель на подуровень
 	int    level      ; // ”ровень текста
-	struct TTextMem
-	{
-		TLink* pFirst;
-		TLink* pFree;
-		TLink* pLast;
-	};
+	
 
 	TLink();
 	TLink(const char* _str, TLink* _pNext = NULL, TLink* _pDown = NULL);
@@ -38,7 +39,7 @@ public:
 	       void*    operator new(size_t size);      
 	       void     operator delete (void* p);
 	static void     InitMem(int size);
-	static void     ClearMem(TText& txt);
+//	static void     ClearMem(TText& txt);
 	       void     PrintFreeLinks();
 
 };
@@ -86,7 +87,7 @@ void TLink::InitMem(int size)
 	}
 	tmp->pNext = NULL;
 }
-
+/*
 void TLink::ClearMem(TText& txt)
 {
 	for (txt.Reset(); !txt.IsEnd(); txt.GoNext())
@@ -113,7 +114,7 @@ void TLink::ClearMem(TText& txt)
 		}
 	}
 }
-
+*/
 void TLink::PrintFreeLinks()
 {
 	string FreeLinks = NULL;

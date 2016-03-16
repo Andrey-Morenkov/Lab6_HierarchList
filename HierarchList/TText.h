@@ -245,15 +245,16 @@ void TText::ReadFile(char* fname)
 	ifs.close();
 }
 
-void TText::PrintSection(TLink* p)
+void TText::PrintSection(TLink* p)//int level
 {
 	if (p != NULL)
 	{
 		cout <<voids(p->level)<< p->str << endl;
 		if (p->pDown != NULL)
 		{
-			p->level++;
-			PrintSection(p->pDown);
+			//p->level++;
+			PrintSection(p->pDown);//++level
+			//level--
 		}
 		if (p->pNext == NULL)
 			p->level--;
@@ -264,12 +265,12 @@ void TText::PrintSection(TLink* p)
 
 void TText::PrintText()
 {
-	PrintSection(pFirst);
+	PrintSection(pFirst);//0
 }
 
 void TText::SaveText(char* fname)
 {
-	ofstream ofs(fname);
+	ofstream ofs;// (fname);
 	ofs.open(fname);
 	SaveSection(pFirst, ofs);
 	ofs.close();
@@ -284,6 +285,8 @@ void TText::SaveSection(TLink* p, ofstream& ofs)
 		{
 			ofs << "{" << endl;
 			PrintSection(p->pDown);
+			ofs << "}" << endl;
+
 		}
 		if (p->pNext == NULL)
 			ofs << "}" << endl;

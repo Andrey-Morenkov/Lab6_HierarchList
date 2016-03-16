@@ -2,7 +2,7 @@
 
 #include "stdafx.h"
 #include <string>
-#include "TLink.h"
+//#include "TLink.h"
 #include "TStack.h"
 #include "TText.h"
 #include <iostream>
@@ -10,6 +10,8 @@
 
 
 using namespace std;
+
+TTextMem TLink::TextMem;
 
 int mainmenu()
 {
@@ -55,6 +57,7 @@ int textmenu()
 	system("cls");
 	// PrintTextKeys();
 	//Text.PrintTextNavigation();                         // текст в виде меню
+	return 0;
 }
 
 int _tmain(int argc, _TCHAR* argv[])
