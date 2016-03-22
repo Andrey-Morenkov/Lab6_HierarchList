@@ -46,20 +46,6 @@ public:
 	void   SaveSection (TLink* p, ofstream& ofs);
 };
 
-string voids(int _level)
-{
-	int i = _level;
-	string str;
-	//str[0] = '\0';
-	while (i != 0)
-	{
-		str = str + ' ';
-		i--;
-	}
-	return str;
-}
-
-
 using namespace std;
 
 
@@ -245,18 +231,33 @@ void TText::ReadFile(char* fname)
 	ifs.close();
 }
 
+string voids(int _level)
+{
+	int i = _level;
+	string str;
+	//str[0] = '\0';
+	while (i != 0)
+	{
+		str += "  ";
+		i--;
+	}
+	return str;
+}
+
 void TText::PrintSection(TLink* p, int level)
 {
 	if (p != NULL)
 	{
-		cout <<voids(p->level)<< p->str << endl;
+		cout <<voids(level)<< p->str << endl;
 		if (p->pDown != NULL)
 		{
-			p->level = ++level;
-			PrintSection(p->pDown,p->level);
-			p->level = --level;
+			//p->level = ++level;
+			level++;
+			PrintSection(p->pDown,level);
+			//p->level = --level;
+			level--;
 		}
-		PrintSection(p->pNext,p->level);
+		PrintSection(p->pNext,level);
 	}
 }
 

@@ -70,7 +70,8 @@ void* TLink:: operator new(size_t size)
 void TLink:: operator delete (void* p)
 {
 	TLink* tmp = (TLink*) p;
-	tmp->TextMem.pFree = TextMem.pFree;                                  
+	//tmp->TextMem.pFree = TextMem.pFree;
+	tmp->pNext = TextMem.pFree;
 	TextMem.pFree = tmp;
 }
 
