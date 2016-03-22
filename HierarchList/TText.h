@@ -238,7 +238,7 @@ string voids(int _level)
 	//str[0] = '\0';
 	while (i != 0)
 	{
-		str += "  ";
+		str += "   ";
 		i--;
 	}
 	return str;
