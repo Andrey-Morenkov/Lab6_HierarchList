@@ -251,11 +251,11 @@ void TText::PrintSection(TLink* p, int level)
 		cout <<voids(level)<< p->str << endl;
 		if (p->pDown != NULL)
 		{
-			//p->level = ++level;
 			level++;
+			p->pDown->level = level;
 			PrintSection(p->pDown,level);
-			//p->level = --level;
 			level--;
+			//p->level = level;
 		}
 		PrintSection(p->pNext,level);
 	}
