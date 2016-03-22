@@ -15,7 +15,7 @@ TTextMem TLink::TextMem;
 
 int mainmenu()
 {
-	int MenuLength = 2;         // Длина меню
+	int MenuLength = 2;   // Длина меню
 	int line  = 0;        // Активная строка
 	int idkey = 0;        // Нажатая клавиша
 
@@ -52,19 +52,12 @@ int mainmenu()
 	return line;
 }
 
-int textmenu()
-{
-	system("cls");
-	// PrintTextKeys();
-	//Text.PrintTextNavigation();                         // текст в виде меню
-	return 0;
-}
-
 int _tmain(int argc, _TCHAR* argv[])
 {
 	setlocale(LC_ALL, "Russian");
+	TLink::InitMem(100);
 
-	//TText Text;
+	TText Text;
 	char filename[] = "Text.txt";
 	char savefile[] = "SavedText.txt";
 
@@ -74,14 +67,14 @@ int _tmain(int argc, _TCHAR* argv[])
 		switch (answer)
 		{
 		case 0:
-			//Text.ReadFile(filename);
-			//Text.PrintText();
+			Text.ReadFile(filename);
+			Text.PrintText();
 			_getch();
 			break;
 		case 1:
 			exit(0);
 		}
-		while (true)
+		/*while (true)
 		{
 			int answer = mainmenu();
 			switch (answer)
@@ -104,6 +97,6 @@ int _tmain(int argc, _TCHAR* argv[])
 				_getch();
 				break;
 			}
-		}
+		}*/
 	}
 }

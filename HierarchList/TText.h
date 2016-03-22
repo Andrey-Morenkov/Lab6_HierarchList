@@ -40,7 +40,7 @@ public:
 
 	TLink* ReadSection (ifstream& ifs)          ;
 	void   ReadFile    (char* fname)            ;
-	void   PrintSection(TLink* p)               ;
+	void   PrintSection(TLink* p, int level)    ;
 	void   PrintText   ()                       ;
 	void   SaveText    (char* fname)            ;
 	void   SaveSection (TLink* p, ofstream& ofs);
@@ -49,11 +49,11 @@ public:
 string voids(int _level)
 {
 	int i = _level;
-	string str=NULL;
-	str[0] = '\0';
+	string str;
+	//str[0] = '\0';
 	while (i != 0)
 	{
-		str += ' ';
+		str = str + ' ';
 		i--;
 	}
 	return str;
@@ -239,38 +239,35 @@ TLink* TText::ReadSection(ifstream& ifs)
 
 void TText::ReadFile(char* fname)
 {
-	ifstream ifs(fname);
+	ifstream ifs;// (fname);
 	ifs.open(fname);
 	pFirst = ReadSection(ifs);
 	ifs.close();
 }
 
-void TText::PrintSection(TLink* p)//int level
+void TText::PrintSection(TLink* p, int level)
 {
 	if (p != NULL)
 	{
 		cout <<voids(p->level)<< p->str << endl;
 		if (p->pDown != NULL)
 		{
-			//p->level++;
-			PrintSection(p->pDown);//++level
-			//level--
+			p->level = ++level;
+			PrintSection(p->pDown,p->level);
+			p->level = --level;
 		}
-		if (p->pNext == NULL)
-			p->level--;
-		else
-			PrintSection(p->pNext);
+		PrintSection(p->pNext,p->level);
 	}
 }
 
 void TText::PrintText()
 {
-	PrintSection(pFirst);//0
+	PrintSection(pFirst,pFirst->level);
 }
 
 void TText::SaveText(char* fname)
 {
-	ofstream ofs;// (fname);
+	ofstream ofs;
 	ofs.open(fname);
 	SaveSection(pFirst, ofs);
 	ofs.close();
@@ -284,14 +281,11 @@ void TText::SaveSection(TLink* p, ofstream& ofs)
 		if (p->pDown != NULL)
 		{
 			ofs << "{" << endl;
-			PrintSection(p->pDown);
+			SaveSection(p->pDown,ofs);
 			ofs << "}" << endl;
 
 		}
-		if (p->pNext == NULL)
-			ofs << "}" << endl;
-		else
-			PrintSection(p->pNext);
+		SaveSection(p->pNext,ofs);
 	}
 }
 
