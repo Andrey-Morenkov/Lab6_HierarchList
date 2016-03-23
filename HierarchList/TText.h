@@ -228,6 +228,7 @@ void TText::ReadFile(char* fname)
 	ifstream ifs;// (fname);
 	ifs.open(fname);
 	pFirst = ReadSection(ifs);
+	pCurr = pFirst;
 	ifs.close();
 }
 
@@ -248,7 +249,12 @@ void TText::PrintSection(TLink* p, int level)
 {
 	if (p != NULL)
 	{
-		cout <<voids(level)<< p->str << endl;
+		if (p == pCurr)
+			cout << "*"<< voids(level) << p->str << endl;
+		else
+		{
+			cout << voids(level) << p->str << endl;
+		}
 		if (p->pDown != NULL)
 		{
 			level++;
