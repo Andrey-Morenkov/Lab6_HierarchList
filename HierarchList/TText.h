@@ -253,7 +253,7 @@ void TText::PrintSection(TLink* p, int level)
 			cout << "*"<< voids(level) << p->str << endl;
 		else
 		{
-			cout << voids(level) << p->str << endl;
+			cout << " "<< voids(level) << p->str << endl;
 		}
 		if (p->pDown != NULL)
 		{
