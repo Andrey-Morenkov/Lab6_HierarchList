@@ -1,4 +1,4 @@
-#pragma once
+/*#pragma once
 
 #include "TLink.h"
 #include "TStack.h"
@@ -6,6 +6,8 @@
 #include <fstream>
 #include <iostream>
 #include <conio.h>
+
+class TLink;
 
 class TText
 {
@@ -90,9 +92,9 @@ void TText::GoDownLink()
 
 void TText::GoPrevLink()
 {
-	if (! path.IsEmpty())
+	if (!path.IsEmpty())
 	{
-		pCurr = path.Pop();               
+		pCurr = path.Pop();
 	}
 }
 
@@ -250,26 +252,26 @@ void TText::PrintSection(TLink* p, int level)
 	if (p != NULL)
 	{
 		if (p == pCurr)
-			cout << "*"<< voids(level) << p->str << endl;
+			cout << "*" << voids(level) << p->str << endl;
 		else
 		{
-			cout << " "<< voids(level) << p->str << endl;
+			cout << " " << voids(level) << p->str << endl;
 		}
 		if (p->pDown != NULL)
 		{
 			level++;
 			p->pDown->level = level;
-			PrintSection(p->pDown,level);
+			PrintSection(p->pDown, level);
 			level--;
 			//p->level = level;
 		}
-		PrintSection(p->pNext,level);
+		PrintSection(p->pNext, level);
 	}
 }
 
 void TText::PrintText()
 {
-	PrintSection(pFirst,pFirst->level);
+	PrintSection(pFirst, pFirst->level);
 }
 
 void TText::SaveText(char* fname)
@@ -288,11 +290,11 @@ void TText::SaveSection(TLink* p, ofstream& ofs)
 		if (p->pDown != NULL)
 		{
 			ofs << "{" << endl;
-			SaveSection(p->pDown,ofs);
+			SaveSection(p->pDown, ofs);
 			ofs << "}" << endl;
 
 		}
-		SaveSection(p->pNext,ofs);
+		SaveSection(p->pNext, ofs);
 	}
 }
 
@@ -304,4 +306,4 @@ string TText::GetLine()
 void TText::SetLine(string str)
 {
 	*this->pCurr->str = *str.c_str();
-}
+}*/

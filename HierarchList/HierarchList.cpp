@@ -1,10 +1,12 @@
 #pragma once
 
+#define _CRT_SECURE_NO_WARNINGS
+
 #include "stdafx.h"
 #include <string>
-//#include "TLink.h"
+#include "TLink.h"
 #include "TStack.h"
-#include "TText.h"
+//#include "TText.h"
 #include <iostream>
 #include <conio.h>
 
@@ -168,9 +170,13 @@ void MenuAction(TText& text)
 		break;
 	case 166:                  // DelNextLine
 		text.DelNextLine();
+		TLink::PrintFreeLinks();
+		getch();
 		break;
 	case 238:                  //  DelDownLine
 		text.DelDownLine();
+		TLink::PrintFreeLinks();
+		getch();
 		break;
 	}
 }
@@ -221,6 +227,11 @@ int _tmain(int argc, _TCHAR* argv[])
 				  }
 				  case 2:
 				  {
+							system("cls");
+							TLink::ClearMem(Text);
+							TLink::PrintFreeLinks();
+							cout << endl;
+							int i = _getch();
 							exit(0);
 
 				  }
